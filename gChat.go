@@ -2,21 +2,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/xjchan/gChat/tools"
-	// "gopkg.in/yaml.v2"
+	"github.com/xjchan/gChat/lib/config"
+	myError "github.com/xjchan/gChat/lib/error"
 	"github.com/xjchan/gChat/test"
-	// "reflect"
 )
 
 func main() {
 	configFolder := "./configs/"
-	tools.SetConfigFolder(configFolder) //初始配置目录
+	config.SetConfigFolder(configFolder) //初始配置目录
 
 	t := test.TestConfig{}
-	err := tools.GetConfig("test.yaml", &t)
-	tools.CheckError(err)
-	// ty := reflect.TypeOf(t)
-	// fmt.Println(ty.String())
+	err := config.GetConfig("test.yaml", &t)
+	myError.CheckError(err)
+
 	fmt.Println(t)
 
 	fmt.Println("Hello Wrold")

@@ -1,9 +1,10 @@
-package tools
+package config
 
 import (
 	// "errors"
 	// "fmt"
 	// "gopkg.in/yaml.v2"
+	myError "github.com/xjchan/gChat/lib/error"
 	"io/ioutil"
 	"os"
 	"reflect"
@@ -32,10 +33,10 @@ func GetConfigFunc(key string, resolver func(buf []byte) (interface{}, error)) (
 	configFile := configFolder + key
 
 	f, err := os.Open(configFile)
-	CheckError(err)
+	myError.CheckError(err)
 
 	buf, err := ioutil.ReadAll(f)
-	CheckError(err)
+	myError.CheckError(err)
 
 	r, err := resolver(buf)
 	if err == nil {
@@ -54,10 +55,10 @@ func GetConfig(key string, resolver Resolver) error {
 		configFile := configFolder + key //配置文件地址
 
 		f, err := os.Open(configFile)
-		CheckError(err)
+		myError.CheckError(err)
 
 		buf, err := ioutil.ReadAll(f)
-		CheckError(err)
+		myError.CheckError(err)
 
 		r, err = resolver.GetConfig(buf)
 		if err == nil {
