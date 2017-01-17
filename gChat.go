@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/xjchan/gChat/client"
 	"github.com/xjchan/gChat/lib/config"
 	myError "github.com/xjchan/gChat/lib/error"
 	"github.com/xjchan/gChat/test"
+	"net"
+	"net/http"
 )
 
 func main() {
@@ -18,5 +21,11 @@ func main() {
 	fmt.Println(t)
 
 	fmt.Println("Hello Wrold")
+
+	var clientMap map[net.Conn]client.Client
+
+	local := http.ListenAndServe(":8888", func() {
+
+	})
 
 }
