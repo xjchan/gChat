@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/xjchan/gChat/client"
+	// "github.com/xjchan/gChat/client"
 	"github.com/xjchan/gChat/lib/config"
 	myError "github.com/xjchan/gChat/lib/error"
 	"github.com/xjchan/gChat/test"
 	"net"
-	"net/http"
+	// "net/http"
 )
 
 func main() {
@@ -22,10 +22,22 @@ func main() {
 
 	fmt.Println("Hello Wrold")
 
-	var clientMap map[net.Conn]client.Client
+	// var clientMap map[net.Conn]client.Client
 
-	local := http.ListenAndServe(":8888", func() {
+	service := ":7777"
+	tcpAddr, _ := net.ResolveTCPAddr("tcp4", service)
+	listener, _ := net.ListenTCP("tcp", tcpAddr)
 
-	})
+	for {
+		conn, _ := listener.Accept()
+		go func() {
+			defer conn.Close()
+			r := make([]byte, 512)
+			for {
+				conn.Read(r)
+				fmt.Println(string(r))
+			}
+		}()
+	}
 
 }
